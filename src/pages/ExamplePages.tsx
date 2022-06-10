@@ -1,6 +1,7 @@
 import React from 'react'
 import hook from '../hook'
 import labQuiz from '../labQuiz'
+import DOMEvent from '../labQuiz/DOMEvent'
 export default function ExamplePages() {
     const aa = [
         { name: 'ahihi' },
@@ -15,11 +16,8 @@ export default function ExamplePages() {
             <labQuiz.Props title={'Ahihi'} data={aa}/>
             {console.log(<labQuiz.Props title={'Ahihihi'} content={'ohihihi'} data={aa}/>,
              'ra obj props co cac params: title || content / có thể thêm props, đang bị giới hạn do model props truyền vào nên chỉ có 2 param')}
-            <ul>
-                {aa.map((e, index) => {
-                    return <li key={index}>{e.name}</li>
-                })}
-            </ul>
+            <DOMEvent title={"Dom Event"} href={'https://fullstack.edu.vn/'} onClick={()=>{console.log('Da click')}}/>
+
         </div>
     )
-}
+} 
