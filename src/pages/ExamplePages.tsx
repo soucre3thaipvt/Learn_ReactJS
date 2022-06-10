@@ -17,7 +17,10 @@ export default function ExamplePages() {
             {console.log(<labQuiz.Props title={'Ahihihi'} content={'ohihihi'} data={aa}/>,
              'ra obj props co cac params: title || content / có thể thêm props, đang bị giới hạn do model props truyền vào nên chỉ có 2 param')}
             <DOMEvent title={"Dom Event"} href={'https://fullstack.edu.vn/'} onClick={()=>{console.log('Da click')}}/>
-
+            <DOMEvent title={'Click me'} isPrimary >
+                <h1>Props child</h1>
+                <p>Chill the ak</p>
+            </DOMEvent>
         </div>
     )
 } 

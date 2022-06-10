@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function DOMEvent(props: { title: String, href?: String, onClick?: () => void }) {
+export default function DOMEvent(props: { title: String, href?: String, onClick?: () => void , isPrimary?: boolean, children?:any}) {
     let Component: any = 'button';
     let propsChilds = {};
     if (props.href) {
@@ -14,11 +14,12 @@ export default function DOMEvent(props: { title: String, href?: String, onClick?
     }
 
     console.log('dddddddddddd', props)
+    console.log('isPrimary', props.isPrimary, props.children)
     return (
         <div>
             <h3>DOM Event</h3>
-            <div>{props.title}</div>
             <Component {...propsChilds}>{props.title}</Component>
+            {props.children}
         </div>
     )
 }
