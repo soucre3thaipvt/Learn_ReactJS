@@ -4,7 +4,7 @@ export default function Props(props: {
     title?: String,
     content?: String,
     data?: { name?: String }[];
-    callBack?: ;
+    callBack?: ()=>{};
 }) {
     return (
         <div>
@@ -14,7 +14,10 @@ export default function Props(props: {
             <input id='email' />
             <h4>Props Component {props?.title}</h4>
             {props.content && <p>{props.content}</p>}
-            {/* {props.data && (props.data.map((e, i) => { <p key={i}>{e.name}</p> }))} */}
+            {props.data && props.data.map((e,i)=> <Item key={i} name={e.name}/>)}
         </div>
     )
+}
+const Item = (props:any)=>{
+    return <p>{props.name} 2</p>
 }
