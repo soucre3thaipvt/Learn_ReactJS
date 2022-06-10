@@ -6,6 +6,7 @@ import SettingPage from './pages/SettingPages'
 import ChatPage from './pages/ChatPages'
 import LoginPage from './pages/LoginPages'
 import SignUpPage from './pages/SignUp'
+import ExamplePage from './pages/ExamplePages'
 import {
   BrowserRouter,
   Routes,
@@ -17,9 +18,10 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={<ExamplePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignUpPage />} />
-        <Route path="/" element={<HomePage />} />
+        <Route path="/home" element={<HomePage />} />
         <Route path="/person" element={<PersonPage />} />
         <Route path="/product" element={<ProductPage />} />
         <Route path="/chat" element={<ChatPage />} />
