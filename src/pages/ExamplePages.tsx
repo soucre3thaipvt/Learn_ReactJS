@@ -10,7 +10,7 @@ export default function ExamplePages() {
     ]
     return (
         //@ts-ignore
-        <div style={{ textAlign: 'center' }}>
+        <div style={{ textAlign: 'center' , marginBottom: 500}}>
             <h1>ExamplePages</h1>
             <br />
             <labQuiz.Props title={'Ahihi'} data={aa}/>
@@ -21,6 +21,8 @@ export default function ExamplePages() {
                 <h1>Props child</h1>
                 <p>Chill the ak</p>
             </DOMEvent>
+            <hook.UseState/>
+            <hook.UseEffect/>
         </div>
     )
 } 
