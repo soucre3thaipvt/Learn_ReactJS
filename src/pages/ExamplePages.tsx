@@ -35,6 +35,8 @@ export default function ExamplePages() {
             <hook.UseState />
             <hook.UseEffect />
             <hook.UseLayoutEffect />
+            <hook.UseRef />
+            <hook.UseMemo />
         </div>
     }
     return (
