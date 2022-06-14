@@ -1,9 +1,15 @@
-import React ,{memo}from 'react'
+import React, { memo } from 'react'
 
-function ContentMemo({count}:any) {
-    console.log('Khong con bi re-render nua khi thang cha thay doi State')
+function ContentMemo({ count, onIncrease }: any) {
+  console.log('Khong con bi re-render nua khi thang cha thay doi State')
   return (
-    <div>Hello anh em nha {count}</div>
+    <div>
+      <h3>
+        Hello anh em nha {count}
+      </h3>
+      <button onClick={onIncrease}>Click me</button>
+    </div>
+
   )
 }
 
