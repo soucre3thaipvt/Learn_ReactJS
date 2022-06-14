@@ -2,6 +2,20 @@ import React, { useEffect, useState } from 'react'
 // useEffect: side effect : sự tác động xẩy ra dẫn tới bị dữ liệu thay đổi ( state ) 
 // 1. update DOM // 2. Call API  // 3. Listen DOM render  // 4. Cleanup
 const tabs = ['posts', 'comments', 'albums', 'photos', 'todos', 'users']
+const lessons = [
+  {
+    id: 1,
+    name: "ReactJS là gì? Tại sao nên học ReactJS?"
+  },
+  {
+    id: 2,
+    name: "SPA/MMA là gì?"
+  },
+  {
+    id: 3,
+    name: "Arrow function"
+  }
+];
 function Content() {
   const [title, setTitle] = useState('')
   const [post, setPost] = useState([])
@@ -146,7 +160,67 @@ function Content() {
     </div>
   )
 }
+function FakeCommentsComponent() {
+  const [course, setCourse] = useState(1);
+  const [listComments, setListComments] = useState([]);
 
+  useEffect(() => {
+    const handleEvent = (event: any) => {
+      console.log(event);
+      
+      //@ts-ignore
+      setListComments((prev) => {
+        return [
+          ...prev,
+          {
+            id: Math.floor(Math.random() * 10 ** 5),
+            value: event.detail
+          }
+        ];
+      });
+    };
+
+    window.addEventListener(`lesson-${course}`, handleEvent);
+
+    return () => {
+      window.removeEventListener(`lesson-${course}`, handleEvent);
+      setListComments([]);
+    };
+  }, [course]);
+
+  const handleClick = (id: any) => {
+    setCourse(id);
+  };
+
+  return (
+    <div >
+      <ul>
+        {lessons.map((item: any) => (
+          <li
+            key={item.id}
+            style={course === item.id ? { color: 'red' } : {}}
+            onClick={() => handleClick(item.id)}
+          >
+            <h1>{item.name}</h1>
+          </li>
+        ))}
+      </ul>
+      <ul
+        style={{
+          listStyleType: "circle",
+          margin: "32px"
+        }}
+      >
+        {listComments.map((item: any) => (
+          <li key={item.id}>
+            {item.value}
+            <p>{item.id}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
 export default function UseEffect() {
   const [show, setShow] = useState(false)
 
@@ -155,6 +229,7 @@ export default function UseEffect() {
       <h3>UseEffect</h3>
       <button onClick={() => setShow(!show)}>Mounted and Unmounted</button>
       {show && <Content />}
+      <FakeCommentsComponent/>
     </div>
   )
 }
