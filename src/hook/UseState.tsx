@@ -31,7 +31,6 @@ export default function UseState() {
   const [name, setName] = useState('')
   const [checked, setChecked] = useState()
   const [checkBox, setCheckBox] = useState([])
-  const [show, setShow] = useState(false)
 
   const TodoList = () => {
     //@ts-ignore
@@ -86,11 +85,6 @@ export default function UseState() {
     </div>
   }
 
-  const Content = () =>{
-    return <div>
-      <h3>Xin chao 500 anh em nha</h3>
-    </div>
-  }
   const handleCounter = () => {
     setCounter({
       ...counter,
@@ -176,8 +170,6 @@ export default function UseState() {
 
       <TodoList />
 
-      <button onClick={()=>setShow(!show)}>Mounted and Unmounted</button>
-      {show&&<Content/>}
     </div>
   )
 }
