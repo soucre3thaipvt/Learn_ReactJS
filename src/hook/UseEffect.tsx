@@ -9,6 +9,8 @@ function Content() {
   const [showGoTop, setShowGoTop] = useState(false)
   const [width, setWidth] = useState(window.innerWidth)
   const [countDown, setCountDown] = useState(180)
+  const [number, setNumber] = useState(0)
+  const [avatar, setAvatar] = useState()
   // 1 useEffect(callback) 
   // - Gọi call back mỗi khi component re-render
   // - Gọi callback sau khi component thêm element vào DOM
@@ -85,11 +87,45 @@ function Content() {
   //     },1000) 
   // },[countDown])
 
+  // 3. clean function luôn được gọi khi callback được gọi (trừ lần mounted đầu tiên)
+  // khi giá trị deps thay đổi thì sẽ cleanup và chạy lại useEffect // tránh trùng bộ nhớ
+  useEffect(() => {
+    console.log('mouted re-render lần ', number); // 1
+    return () => {
+      console.log('Cleanup func ', number); // 0, khi click cleanup chạy trước
 
+    }
+  }, [number])
+  const handlePreviewAvatar = (e: any) => {
+    // console.log(e);  
+    const file = e.target.files[0]
+    //@ts-ignore
+    file.preview = URL.createObjectURL(file)
+    console.log(file);
+    setAvatar(file)
+  }
+  useEffect(() => {
+    return () => {
+      // xóa ảnh
+      avatar && URL.revokeObjectURL(
+        //@ts-ignore
+        avatar.preview)
+      console.log('Cleanup Avatar tránh rò rỉ bộ nhớ');
+    }
+  }, [avatar])
   return (
     <div>
       <h4>width reSize {width}</h4>
       <h4>Count down {countDown}</h4>
+      <button onClick={() => { setNumber(number + 1) }}>Tăng thêm 1</button><h4>Count number {number}</h4>
+      <div>
+        <label>Thêm ảnh</label>
+        <input type={'file'} onChange={(handlePreviewAvatar)} />
+        <br />
+        {avatar && (<img src={
+          //@ts-ignore
+          avatar.preview} width={'20%'} />)}
+      </div>
       <input value={title} onChange={(e) => setTitle(e.target.value)} />
       <br />
       {tabs.map(e => <button
