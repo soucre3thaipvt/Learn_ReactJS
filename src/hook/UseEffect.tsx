@@ -167,7 +167,7 @@ function FakeCommentsComponent() {
   useEffect(() => {
     const handleEvent = (event: any) => {
       console.log(event);
-      
+
       //@ts-ignore
       setListComments((prev) => {
         return [
@@ -228,8 +228,8 @@ export default function UseEffect() {
     <div>
       <h3>UseEffect</h3>
       <button onClick={() => setShow(!show)}>Mounted and Unmounted</button>
-      {show && <Content />}
-      <FakeCommentsComponent/>
+      {show && (<div> <FakeCommentsComponent />  <Content />  </div>)}
+
     </div>
   )
 }
