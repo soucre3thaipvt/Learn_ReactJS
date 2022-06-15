@@ -47,7 +47,7 @@ const TotalProduct = () => { // Có sử dụng useMemo
     }, 0);
 
     return result;
-  },[products])
+  }, [products])
 
   return (
     <div>
@@ -64,15 +64,20 @@ const TotalProduct = () => { // Có sử dụng useMemo
         placeholder="Giá sản phẩm..."
         value={price}
         onChange={(e) => setPrice(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            handleClick()
+          }
+        }}
       />
       <br />
-      <button onClick={handleClick} onPointerEnter={handleClick}>Add</button>
+      <button onClick={handleClick}>Add</button>
       Total: {tinhTong}
       <ul>
         {products.map((product: any, i: any) => {
           return (
             <li key={i}>
-              {product.name}-{product.price}
+              {product.name}:  {product.price}
             </li>
           );
         })}
@@ -92,8 +97,8 @@ export default function UseMemo() {
       {show && <ContentMemo count={count} />}
       <h4>{count}</h4>
       <button onClick={() => { setCount(count + 1) }}> Memo Click</button>
-      <br/><br/>
-      <button onClick={() => { setShowTotal(!showTotal)}}> {showTotal ? 'Tắt bài toán tính sản phẩm' : 'Bài toán tính tổng sản phẩm'} </button>
+      <br /><br />
+      <button onClick={() => { setShowTotal(!showTotal) }}> {showTotal ? 'Tắt bài toán tính sản phẩm' : 'Bài toán tính tổng sản phẩm'} </button>
       {showTotal && <TotalProduct />}
     </div>
   )

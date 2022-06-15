@@ -13,6 +13,48 @@ export default function ExamplePages() {
         { name: 'nhieu ahihi' },
         { name: 'cuc nhieu ahihi' }
     ]
+    const tabs = ['Props', 'DOM Event', 'All Hook']
+    const tabHooks = ['useState', 'useEffect', 'useCallback', 'useLayoutEffect', 'useRef', 'useMemo', 'useReducer', 'useContext', 'useDebugValue', 'useImperativeHandle',]
+    const SwitchTabsHook = ({ type }: any) => {
+        switch (type) {
+            case tabHooks[0]:
+                return <hook.UseState />
+            case tabHooks[1]:
+                return <hook.UseEffect />
+            case tabHooks[2]:
+                return <hook.UseCallback />
+            case tabHooks[3]:
+                return <hook.UseLayoutEffect />
+            case tabHooks[4]:
+                return <hook.UseRef />
+            case tabHooks[5]:
+                return <hook.UseMemo />
+            case tabHooks[6]:
+                return <hook.UseReducer />
+            case tabHooks[7]:
+                return <hook.UseContext />
+            case tabHooks[8]:
+                return <hook.UseDebugValue />
+            case tabHooks[9]:
+                return <hook.UseImperativveHandle />
+            default:
+                return <hook.UseState />
+
+        }
+    }
+    const SwitchTabsMain = ({ type }: any) => {
+        switch (type) {
+            case tabs[0]:
+                return <RenderPops />
+            case tabs[1]:
+                return <RenderDOMEvent />
+            case tabs[2]:
+                return <RenderHook />
+            default:
+                return <RenderPops />
+
+        }
+    }
     const RenderPops = () => {
         return <>
             <labQuiz.Props title={'Ahihi'} data={aa} />
@@ -30,14 +72,32 @@ export default function ExamplePages() {
         </>
     }
     const RenderHook = () => {
+
+        const [type, setType] = useState('useState')
         return <div>
-            <h3>Xin chao 500 anh em nha</h3>
-            <hook.UseState />
-            <hook.UseEffect />
-            <hook.UseLayoutEffect />
-            <hook.UseRef />
-            <hook.UseMemo />
-            <hook.UseCallback />
+            <h3>Đây là hook Xin chao 500 anh em nha </h3>
+            {tabHooks.map(item =>
+                <button
+                    style={item === type ? { color: 'white', backgroundColor: 'green', margin: 10 } : { margin: 10 }}
+                    //@ts-ignore
+                    onClick={() => { setType(item) }}>
+                    {item}
+                </button>)}
+            <SwitchTabsHook type={type} />
+
+        </div>
+    }
+    const RenderMain = () => {
+        const [type, setType] = useState('Props')
+        return <div>
+            {tabs.map(item =>
+                <button
+                    style={item === type ? { color: 'white', backgroundColor: 'red', margin: 10 } : { margin: 10 }}
+                    //@ts-ignore
+                    onClick={() => { setType(item) }}>
+                    {item}
+                </button>)}
+            <SwitchTabsMain type={type} />
         </div>
     }
     return (
@@ -45,16 +105,7 @@ export default function ExamplePages() {
         <div style={{ textAlign: 'center', marginBottom: 500 }}>
             <h1>ExamplePages</h1>
             <br />
-
-            <button onClick={() => setshowProps(!showProps)}>Render Props</button>
-            {showProps && <RenderPops />}
-            <br /><br />
-            <button onClick={() => setShowDOMEvent(!showDOMEvent)}>Render DOM Event</button>
-            {showDOMEvent && <RenderDOMEvent />}
-            <br /><br />
-            <button onClick={() => setShowHook(!showHook)}>Render Hook</button>
-            {showHook && <RenderHook />}
-
+            <RenderMain />
         </div>
     )
 } 
