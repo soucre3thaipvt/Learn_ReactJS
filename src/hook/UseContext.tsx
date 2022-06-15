@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react'
 //@ts-ignore
 import { ThemeContext } from '../config/ThemeContext'
+import { useStore, actions } from "./store";
 //Context
 // CompA => CompB => CompC // cos Context thì truyền thẳng từ CompA => CompC
 
@@ -10,7 +11,7 @@ import { ThemeContext } from '../config/ThemeContext'
 // 2. Provider // ôm thằng component Cha , có thể là ôm cả index.js của App
 // 3. Consumer // nhận dữ liệu
 
-const tabs = ['CompA', 'CompB', 'CompC']
+const tabs = ['CompA', 'CompB Todos App', 'CompC']
 const SwitchTabsMain = ({ type }: any) => {
   switch (type) {
     case tabs[0]:
@@ -47,16 +48,79 @@ const RenderCompA = () => {
   )
 }
 const RenderCompB = () => {
-  return (
-    <div>
+  const [state, dispatch] = useStore(); // Consumer
+  const { todoInput, todos } = state;
 
+  const [changeTodo, setChangeTodo] = useState(false);
+  const [indexTodo, setChangeIndexTodo] = useState(0);
+
+  const handleAdd = () => {
+    dispatch(actions.addTodoInput(todoInput));
+    dispatch(actions.setTodoInput(""));
+  };
+
+  const handleUpdate = () => {
+    dispatch(actions.updateTodoInput(indexTodo, todoInput));
+    dispatch(actions.setTodoInput(""));
+    setChangeTodo(false);
+  };
+
+  return (
+    <div >
+      <input
+        value={todoInput}
+        placeholder="Enter todo ..."
+        onChange={(e) => {
+          dispatch(actions.setTodoInput(e.target.value));
+        }}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            !changeTodo ? handleAdd() : handleUpdate()
+             
+          }
+        }}
+      />
+
+      <button onClick={changeTodo === false ? handleAdd : handleUpdate}>
+        {changeTodo === false ? "Add" : "Update"}
+      </button>
+
+      <ul>
+        {todos.map((todo: any, index: any) => (
+          <li key={index}>
+            {todo}
+            <span
+              onClick={() => {
+                dispatch(actions.setTodoInput(todo));
+                setChangeTodo(true);
+                setChangeIndexTodo(index);
+              }}
+            > {'  '}
+              <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToSFVQa6yD2NeXi0XHT84KCORcQqHavf2cow&usqp=CAU' style={{height:20}} />
+              {'  '}
+            </span>
+
+            <span
+              onClick={() => {
+                dispatch(actions.deleteTodoInput(index));
+              }}
+            >
+              {'  '}
+              <img src='https://icon-library.com/images/delete-icon-png/delete-icon-png-16.jpg'style={{height:20}} />
+              {'  '}
+
+            </span>
+          </li>
+        ))}
+      </ul>
     </div>
-  )
+  );
+
 }
 const RenderCompC = () => {
   const themeContext = useContext(ThemeContext)
   // provier có value là gì, thì useContext theme sẽ nhận cái value đó
-  
+
   return (
     <p className={themeContext.theme}>
 

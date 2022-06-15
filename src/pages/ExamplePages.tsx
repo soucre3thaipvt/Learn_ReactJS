@@ -4,6 +4,7 @@ import labQuiz from '../labQuiz'
 import DOMEvent from '../labQuiz/DOMEvent'
 //@ts-ignore
 import { ThemeProvider } from "../config/ThemeContext";
+import { StoreProvider } from "../hook/store";
 export default function ExamplePages() {
     const [showProps, setshowProps] = useState(false)
     const [showDOMEvent, setShowDOMEvent] = useState(false)
@@ -104,12 +105,14 @@ export default function ExamplePages() {
     }
     return (
         //@ts-ignore
-        <ThemeProvider >
-            <div style={{ textAlign: 'center', marginBottom: 500 }}>
-                <h1>ExamplePages</h1>
-                <br />
-                <RenderMain />
-            </div>
-        </ThemeProvider>
+        <StoreProvider>
+            <ThemeProvider >
+                <div style={{ textAlign: 'center', marginBottom: 500 }}>
+                    <h1>ExamplePages</h1>
+                    <br />
+                    <RenderMain />
+                </div>
+            </ThemeProvider>
+        </StoreProvider>
     )
 } 
